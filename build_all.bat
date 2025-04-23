@@ -7,7 +7,8 @@ REM Execute bat in command prompt
 REM nur_sample_java>build_all.bat
 
 REM manually set JAVA_HOME
-SET JAVA_HOME=D:\Program Files\Amazon Corretto\jdk1.8.0_252
+REM SET JAVA_HOME=D:\Program Files\Amazon Corretto\jdk1.8.0_252
+SET JAVA_HOME=C:\JAVA\CommonFiles\JDK
 if "%JAVA_HOME%" == "" (
 	echo FAILED
 	echo JAVA_HOME Environment not set
