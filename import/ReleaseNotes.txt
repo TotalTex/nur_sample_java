@@ -1,3 +1,24 @@
+v1.10.0.0
+- Add HID format API
+
+v1.9.2.1
+- Fixed maxmimum file size
+
+v1.9.2.0
+- Removed BLE pass key functionality
+
+v1.9.1.9
+- Bug fixes
+
+v1.9.1.8
+- Added to check EXA devices
+
+v1.9.1.7
+- Fixed reflected power calculation handling
+
+v1.9.1.6
+- Fixed setLockRaw to allow to use all accepted action bits
+
 v1.9.1.5
 - Fixed setAccessPasswordByEpc & setKillPasswordByEpc epcBufLen parameter by multiplying value by 8
 
