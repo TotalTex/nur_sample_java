@@ -122,6 +122,7 @@ while (Stop == 0)
 			catch(Exception e)
 			{
 				System.out.println(e);
+				e.printStackTrace();
 				Dbconnect = 0;
 			}  		
 			
@@ -388,6 +389,7 @@ while (Stop == 0)
 			}
 			catch (Exception ex) {
 				System.out.println(ex);
+				ex.printStackTrace();
 				Connect = 0;
 				Dbconnect = 0;
 				
@@ -503,7 +505,7 @@ while (Stop == 0)
 							NurTag tag = apiStorage.get(n);							
 							//int occurrences = tag.getUpdateCount();
 							rfidchips.add(tag.getEpcString());
-							int occurrences2 = Collections.frequency(rfidchips, tag.getEpcString());
+							//int occurrences2 = Collections.frequency(rfidchips, tag.getEpcString());
 							//if (occurrences2<2)
 							//System.out.println(String.format("# Tag Info '%s' RSSI %d '%s' CountUpdatedApi '%s' COuntrfidchipliste '%s' ", tag.getEpcString(), tag.getRssi(),tag.getAntennaId(),occurrences,occurrences2 ));
 							//if (occurrences2>DetectedRounds) 
@@ -547,7 +549,7 @@ while (Stop == 0)
 					}					
 					catch (Exception e)
 					{
-				
+						e.printStackTrace();
 					}
 										
 				}
