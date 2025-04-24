@@ -114,7 +114,7 @@ while (Stop == 0)
 					{
 						Class.forName("com.mysql.jdbc.Driver");  
 						con=DriverManager.getConnection(  
-						"jdbc:mysql://"+mysql+"/digiwash1","root","CATCAT");  
+						"jdbc:mysql://"+mysql+"/digiwash","root","CATCAT");  
 						stmt=con.createStatement();  
 						Dbconnect = 1;	
 					}
