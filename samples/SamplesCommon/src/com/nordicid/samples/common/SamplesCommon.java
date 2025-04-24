@@ -5,8 +5,6 @@ import com.nordicid.nurapi.NurApiTransport;
 import com.nordicid.nurapi.NurApi;
 import com.nordicid.nurapi.NurApiSerialTransport;
 
-
-
 public class SamplesCommon {
 	
 
@@ -17,12 +15,12 @@ public class SamplesCommon {
 	public static NurApiTransport createTransport(String addr) {
 		
 		// Connect reader over network
-		//return createSocket("192.168.2.248", 4333);
+		//return createSocket("100.109.203.96", 4333);
 		return createSocket(addr, 4333);
 		//return createSocket("ar8xaabbcc.local", 4333);
 		
 		// Connect reader over serial port (WINDOWS)
-		//return createSerial("COM5", 115200);
+		//return createSerial("COM30", 115200);
 		
 		// Connect reader over serial port (Linux)
 		//return createSerial("/dev/ttyACM0", 115200);
