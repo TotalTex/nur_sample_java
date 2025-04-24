@@ -5,9 +5,7 @@ import com.nordicid.nurapi.NurApiTransport;
 import com.nordicid.nurapi.NurApi;
 import com.nordicid.nurapi.NurApiSerialTransport;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Enumeration;
+
 
 public class SamplesCommon {
 	
@@ -16,17 +14,15 @@ public class SamplesCommon {
 	 * Create transport for NurApi.
 	 * NOTE: SETUP TRANSPORT FOR YOUR ENVIRONMENT
 	 */	
-	public static NurApiTransport createTransport() throws Exception {
-
+	public static NurApiTransport createTransport(String addr) {
+		
 		// Connect reader over network
-		//return createSocket("192.168.1.110", 4333);
+		//return createSocket("192.168.2.248", 4333);
+		return createSocket(addr, 4333);
 		//return createSocket("ar8xaabbcc.local", 4333);
 		
-		// Connect reader over serial port (Automatically find port; WINDOWS ONLY)
-		return createSerial(findNurSerialPort(), 115200);
-		
 		// Connect reader over serial port (WINDOWS)
-		//return createSerial("COM30", 115200);
+		//return createSerial("COM5", 115200);
 		
 		// Connect reader over serial port (Linux)
 		//return createSerial("/dev/ttyACM0", 115200);
@@ -39,38 +35,6 @@ public class SamplesCommon {
 	// Common
 	////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////
-	
-	public static String findNurSerialPort() throws Exception
-	{
-		Map<String, String> portNames = null;
-		try {
-			portNames = NurApiSerialTransport.enumeratePortsFriendly();
-		}catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		String nurPort = "";
-
-		ArrayList<String> ports = NurApiSerialTransport.enumeratePorts();
-		System.out.println("Serial ports:"); 		
-		for (String port : ports) {
-			System.out.println("Port: '"+port+"'"); 	
-			if (portNames != null && portNames.containsKey(port)) {
-				System.out.println("FriendlyName: '"+portNames.get(port)+"'");
-				if (portNames.get(port).contains("NUR")) {
-					nurPort = port;
-					System.out.println("Found NUR port!");
-					break;
-				}
-			}
-			System.out.println(""); 	
-		}
-		
-		if (nurPort.isEmpty()) {
-			throw new Exception("Unable to find NUR serial port"); 	
-		}
-		return nurPort;
-	}
 	
 	/** Create serial port transport 
 	 * @param port 			Serial port identifier. Windows e.g. "COM5", Linux e.g. (usb) "/dev/ttyACM0", (serial) "/dev/ttyS0"
@@ -104,13 +68,13 @@ public class SamplesCommon {
 		return api;
 	}
 	
-	public static NurApi createAndConnectNurApi() throws Exception
+	public static NurApi createAndConnectNurApi(String addr) throws Exception
 	{
 		// Create a new NurApi object
 		NurApi api = createNurApi();
 		try {			
 			// Set transport for NurApi
-			api.setTransport(SamplesCommon.createTransport());
+			api.setTransport(SamplesCommon.createTransport(addr));
 			
 			// Open a connection for NurApi
 			api.connect();
