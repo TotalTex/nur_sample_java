@@ -64,7 +64,7 @@ public class Example {
 	static int DetectedRounds = 0;
 	
 	//Anzeige Version
-	static String InventoryVersionNumber = "1.9";
+	static String InventoryVersionNumber = "1.9.1";
 	
 	// API access
 	static NurApi api = null;	
