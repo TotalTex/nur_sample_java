@@ -1,6 +1,7 @@
 package com.nordicid.testapplication;
 
 import com.nordicid.samples.common.SamplesCommon;
+//import com.sun.org.apache.xpath.internal.operations.Bool;
 //import com.nordicid.samples.common.Timestamp;
 import com.nordicid.nurapi.NurApi;
 import com.nordicid.nurapi.NurApiListener;
@@ -78,6 +79,7 @@ public class Example {
 	public static void main(String[] args) {
 		String addr = "192.168.2.243";
 		String mysql = "192.168.2.3:3306";
+		Boolean AusgabeVonPrintLn = false;
 		
 		
 		if (args.length > 0)
@@ -87,6 +89,11 @@ public class Example {
 			if ((args.length > 1) && (args[1] != ""))
 			{
 				mysql = args[1]; 
+			}
+			
+			if ((args.length > 1) && (args[2].equals("logAN")))
+			{
+				AusgabeVonPrintLn = true;
 			}
 		}
 		Integer scan_laenge = 10;
@@ -183,13 +190,16 @@ while (Stop == 0)
 					//api.setSetupReadRssiFilter(0, 0);
 					api.setSetupInventoryRssiFilter(InventoryRssiMin, 0);
 					
-					System.out.println(String.format("TX Level %s ",antennen_power));
-					System.out.println(String.format("QFaktor %s ",QFaktor));
-					System.out.println(String.format("InventorySession %s ",InventorySession));
-					System.out.println(String.format("InventoryTarget %s ",InventoryTarget));
-					System.out.println(String.format("read_timeout %s ",read_timeout_ms));
-					System.out.println(String.format("rssi filter inventory min %s ",InventoryRssiMin));
-					System.out.println(String.format("detectrounds %s ",DetectedRounds));
+					if (AusgabeVonPrintLn == true) 
+					{ 
+						System.out.println(String.format("TX Level %s ",antennen_power)); 
+						System.out.println(String.format("QFaktor %s ",QFaktor));
+						System.out.println(String.format("InventorySession %s ",InventorySession));
+						System.out.println(String.format("InventoryTarget %s ",InventoryTarget));
+						System.out.println(String.format("read_timeout %s ",read_timeout_ms));
+						System.out.println(String.format("rssi filter inventory min %s ",InventoryRssiMin));
+						System.out.println(String.format("detectrounds %s ",DetectedRounds));
+					}
 					
 					int antennenflag = 0;
 					int anzahl1 = 0;
@@ -297,7 +307,7 @@ while (Stop == 0)
 						String sql = "('%s',left('%s_%s',45),%s,%s)";
 						int anzahl = 0;
 						boolean JAoderNein = false;						
-						listepufferpruefen();
+						listepufferpruefen(AusgabeVonPrintLn);
 						while (anzahl <= uniqueTags.size() -1 ) 
 						{
 							
@@ -442,7 +452,7 @@ while (Stop == 0)
 		  SocketSendUDPMySQLBereit.close();		
 	}
 	
-	public static void listepufferpruefen() {
+	public static void listepufferpruefen(Boolean BildschirmAusgabe) {
 		for (int n=0; n<listepufferuniqueTags.size(); n++) {
 			NurTag TagListePufferPruefen = listepufferuniqueTags.get(n);
 			int WieOftGelesen = Collections.frequency(rfidchips, TagListePufferPruefen.getEpcString());
@@ -454,13 +464,20 @@ while (Stop == 0)
 			if (HaeufigGenugGelesen) 
 			{		
 				uniqueTags.addTag(TagListePufferPruefen);
-				System.out.println(String.format("# Tag StatistikListePuffer '%s' RSSI %d '%s' Count '%s'  Countrfidliste '%s' Prozentual '%f' Akzeptiert '%b' EventcountClassic '%d' EventCountAtomic '%d' ",
-						TagListePufferPruefen.getEpcString(), TagListePufferPruefen.getRssi(),TagListePufferPruefen.getAntennaId(),TagListePufferPruefen.getUpdateCount(),WieOftGelesen,ProzentualZuRunden,true,eventCount,eventCountAtomic.get() ));
+				if (BildschirmAusgabe == true) 
+				{ 
+					System.out.println(String.format("# Tag StatistikListePuffer '%s' RSSI %d '%s' Count '%s'  Countrfidliste '%s' Prozentual '%f' Akzeptiert '%b' EventcountClassic '%d' EventCountAtomic '%d' ",
+							TagListePufferPruefen.getEpcString(), TagListePufferPruefen.getRssi(),TagListePufferPruefen.getAntennaId(),TagListePufferPruefen.getUpdateCount(),WieOftGelesen,ProzentualZuRunden,true,eventCount,eventCountAtomic.get() ));	
+				}
+						
 			}
 			else
 			{
-				System.out.println(String.format("# Tag StatistikListePuffer '%s' RSSI %d '%s' Count '%s'  Countrfidliste '%s' Prozentual '%f'  Akzeptiert '%b' EventcountClassic '%d' EventCountAtomic '%d' ",
-						TagListePufferPruefen.getEpcString(), TagListePufferPruefen.getRssi(),TagListePufferPruefen.getAntennaId(),TagListePufferPruefen.getUpdateCount(),WieOftGelesen,ProzentualZuRunden,false,eventCount,eventCountAtomic.get() ));
+				if (BildschirmAusgabe == true)
+				{
+					System.out.println(String.format("# Tag StatistikListePuffer '%s' RSSI %d '%s' Count '%s'  Countrfidliste '%s' Prozentual '%f'  Akzeptiert '%b' EventcountClassic '%d' EventCountAtomic '%d' ",
+							TagListePufferPruefen.getEpcString(), TagListePufferPruefen.getRssi(),TagListePufferPruefen.getAntennaId(),TagListePufferPruefen.getUpdateCount(),WieOftGelesen,ProzentualZuRunden,false,eventCount,eventCountAtomic.get() ));
+				}
 			}
 			
 			
