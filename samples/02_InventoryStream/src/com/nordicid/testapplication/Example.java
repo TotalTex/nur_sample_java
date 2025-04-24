@@ -132,7 +132,7 @@ while (Stop == 0)
 				// To change connection parameters, please modify SamplesCommon.java
 				if (Connect == 0)
 				{
-					api = SamplesCommon.createAndConnectNurApi();
+					api = SamplesCommon.createAndConnectNurApi(addr);
 					api.setSetupReadTimeout(1000);
 					System.out.println(api.getFileVersion());
 					
